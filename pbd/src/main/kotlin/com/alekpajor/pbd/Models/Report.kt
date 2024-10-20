@@ -1,9 +1,6 @@
 package com.alekpajor.pbd.Models
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
 data class Report(
@@ -11,9 +8,13 @@ data class Report(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    val patientId: Long,
+    @OneToOne
+    @JoinColumn(name = "patient_id")
+    val patient: User,
 
-    val activityId: Long,
+    @OneToOne
+    @JoinColumn(name = "activity_id")
+    val activity: Activity,
 
     val date: String,
 

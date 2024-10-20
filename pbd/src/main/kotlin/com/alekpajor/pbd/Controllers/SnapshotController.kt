@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*
 class SnapshotController(@Autowired val snapshotService: SnapshotService) {
 
     @GetMapping
-    fun getAllActivities(): List<Snapshot> {
+    fun getAllSnapshots(): List<Snapshot> {
         return snapshotService.getAllSnapshots()
     }
 
     @PostMapping
-    fun createActivity(@RequestBody snapshot: Snapshot): Snapshot {
+    fun createSnapshot(@RequestBody snapshot: Snapshot): Snapshot {
         return snapshotService.createSnapshot(snapshot)
     }
 
