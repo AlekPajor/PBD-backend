@@ -1,8 +1,11 @@
 package com.alekpajor.pbd.Controllers
 
 import com.alekpajor.pbd.Models.Snapshot
+import com.alekpajor.pbd.Requests.AddSnapshotRequest
 import com.alekpajor.pbd.Services.SnapshotService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -17,6 +20,28 @@ class SnapshotController(@Autowired val snapshotService: SnapshotService) {
     @PostMapping
     fun createSnapshot(@RequestBody snapshot: Snapshot): Snapshot {
         return snapshotService.createSnapshot(snapshot)
+    }
+
+    @PostMapping("add")
+    fun addNewSnapshot(@RequestBody addSnapshotRequest: AddSnapshotRequest): ResponseEntity<Any> {
+        return try {
+            snapshotService.addNewSnapshot(
+                activityId = addSnapshotRequest.activityId,
+                time = addSnapshotRequest.time,
+                leftAnkle = addSnapshotRequest.leftAnkle,
+                leftElbow = addSnapshotRequest.leftElbow,
+                leftWrist = addSnapshotRequest.leftWrist,
+                rightAnkle = addSnapshotRequest.rightAnkle,
+                rightElbow = addSnapshotRequest.rightElbow,
+                rightWrist = addSnapshotRequest.rightWrist,
+            )
+            ResponseEntity("Snapshot added successfully", HttpStatus.OK)
+        } catch (e: IllegalArgumentException) {
+            ResponseEntity("Error: ${e.message}", HttpStatus.BAD_REQUEST)
+        }
+        catch (e: Exception) {
+            ResponseEntity("Unexpected error: ${e.message}", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 
 }

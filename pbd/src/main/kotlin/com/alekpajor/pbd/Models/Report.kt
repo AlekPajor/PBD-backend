@@ -8,12 +8,12 @@ data class Report(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @OneToOne
-    @JoinColumn(name = "patient_id")
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
     val patient: User,
 
-    @OneToOne
-    @JoinColumn(name = "activity_id")
+    @ManyToOne
+    @JoinColumn(name = "activity_id", nullable = false)
     val activity: Activity,
 
     val date: String,

@@ -44,7 +44,7 @@ class ReportService(
         }
 
         val activity = activityRepository.findById(activityId).orElseThrow {
-            IllegalArgumentException("No activity found with ID: $patientId")
+            IllegalArgumentException("No activity found with ID: $activityId")
         }
 
         val report = Report(
