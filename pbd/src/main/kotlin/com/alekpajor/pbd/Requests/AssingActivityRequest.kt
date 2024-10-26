@@ -1,6 +1,9 @@
 package com.alekpajor.pbd.Requests
 
-data class AssingActivityRequest(
-    val activityId: Long,
-    val patientId: Long
+data class AssignActivityRequest(
+    val exerciseId: Long,
+    val patientId: Long,
+    val duration: String,
+    val startingTime: String,
+    val period: String,
 )

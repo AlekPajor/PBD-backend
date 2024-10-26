@@ -1,8 +1,7 @@
 package com.alekpajor.pbd.Controllers
 
 import com.alekpajor.pbd.Models.Activity
-import com.alekpajor.pbd.Requests.AssignPatientRequest
-import com.alekpajor.pbd.Requests.AssingActivityRequest
+import com.alekpajor.pbd.Requests.AssignActivityRequest
 import com.alekpajor.pbd.Services.ActivityService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -24,11 +23,14 @@ class ActivityController(@Autowired val activityService: ActivityService) {
     }
 
     @PostMapping("assign")
-    fun assignPatientToDoctor(@RequestBody assignActivityRequest: AssingActivityRequest): ResponseEntity<Any> {
+    fun assignToPatient(@RequestBody assignActivityRequest: AssignActivityRequest): ResponseEntity<Any> {
         return try {
             activityService.assignToPatient(
                 patientId = assignActivityRequest.patientId,
-                activityId = assignActivityRequest.activityId
+                exerciseId = assignActivityRequest.exerciseId,
+                duration = assignActivityRequest.duration,
+                startingTime = assignActivityRequest.startingTime,
+                period = assignActivityRequest.period
             )
             ResponseEntity("Activity assigned to patient with ID ${assignActivityRequest.patientId}", HttpStatus.OK)
         } catch (e: IllegalArgumentException) {

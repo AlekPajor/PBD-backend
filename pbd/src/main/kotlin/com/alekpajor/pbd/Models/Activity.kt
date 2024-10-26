@@ -1,5 +1,6 @@
 package com.alekpajor.pbd.Models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -12,7 +13,10 @@ data class Activity(
     @JoinColumn(name = "exercise_id", nullable = false)
     val exercise: Exercise,
 
-    val name: String,
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    val patient: User,
 
     val duration: String,
 
