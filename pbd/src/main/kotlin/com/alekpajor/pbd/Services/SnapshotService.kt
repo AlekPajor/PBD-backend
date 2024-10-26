@@ -11,36 +11,25 @@ import org.springframework.stereotype.Service
 @Service
 class SnapshotService(
     @Autowired val snapshotRepository: SnapshotRepository,
-    @Autowired val activityRepository: ActivityRepository
 ) {
     fun getAllSnapshots(): List<Snapshot> = snapshotRepository.findAll()
 
     fun createSnapshot(snapshot: Snapshot): Snapshot = snapshotRepository.save(snapshot)
 
     fun addNewSnapshot(
-        activityId: Long,
         time: String,
-        leftWrist: Float,
-        rightWrist: Float,
-        leftElbow: Float,
-        rightElbow: Float,
-        leftAnkle: Float,
-        rightAnkle: Float,
+        leftElbow: Int,
+        rightElbow: Int,
+        leftKnee: Int,
+        rightKnee: Int,
     ) {
-        val activity = activityRepository.findById(activityId).orElseThrow {
-            IllegalArgumentException("No activity found with ID: $activityId")
-        }
-
         val points = Points(
-            leftAnkle = leftAnkle,
             leftElbow = leftElbow,
-            leftWrist = leftWrist,
-            rightAnkle = rightAnkle,
             rightElbow = rightElbow,
-            rightWrist = rightWrist,
+            leftKnee = leftKnee,
+            rightKnee = rightKnee,
         )
         val snapshot = Snapshot(
-            activity = activity,
             time = time,
             points = points
         )

@@ -11,10 +11,10 @@ data class Snapshot(
 
     val time: String,
 
-    @ManyToOne
-    @JoinColumn(name = "activity_id", nullable = false)
-    val activity: Activity,
-
     @Embedded
     val points: Points,
+
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    val exercise: Exercise? = null
 )

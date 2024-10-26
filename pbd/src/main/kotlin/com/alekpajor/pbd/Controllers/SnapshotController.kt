@@ -26,14 +26,11 @@ class SnapshotController(@Autowired val snapshotService: SnapshotService) {
     fun addNewSnapshot(@RequestBody addSnapshotRequest: AddSnapshotRequest): ResponseEntity<Any> {
         return try {
             snapshotService.addNewSnapshot(
-                activityId = addSnapshotRequest.activityId,
                 time = addSnapshotRequest.time,
-                leftAnkle = addSnapshotRequest.leftAnkle,
                 leftElbow = addSnapshotRequest.leftElbow,
-                leftWrist = addSnapshotRequest.leftWrist,
-                rightAnkle = addSnapshotRequest.rightAnkle,
                 rightElbow = addSnapshotRequest.rightElbow,
-                rightWrist = addSnapshotRequest.rightWrist,
+                leftKnee = addSnapshotRequest.leftKnee,
+                rightKnee = addSnapshotRequest.rightKnee
             )
             ResponseEntity("Snapshot added successfully", HttpStatus.OK)
         } catch (e: IllegalArgumentException) {

@@ -4,10 +4,8 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 data class Points(
-    val leftWrist: Float,
-    val rightWrist: Float,
-    val leftElbow: Float,
-    val rightElbow: Float,
-    val leftAnkle: Float,
-    val rightAnkle: Float,
+    val leftElbow: Int,
+    val rightElbow: Int,
+    val leftKnee: Int,
+    val rightKnee: Int
 )

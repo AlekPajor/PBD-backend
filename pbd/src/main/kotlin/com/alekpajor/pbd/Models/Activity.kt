@@ -8,6 +8,10 @@ data class Activity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @ManyToOne
+    @JoinColumn(name = "exercise_id", nullable = false)
+    val exercise: Exercise,
+
     val name: String,
 
     val duration: String,
@@ -15,7 +19,4 @@ data class Activity(
     val startingTime: String,
 
     val period: String,
-
-    @OneToMany(mappedBy = "activity", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val snapshots: MutableList<Snapshot> = mutableListOf()
 )
