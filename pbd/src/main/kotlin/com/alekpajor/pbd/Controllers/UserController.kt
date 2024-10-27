@@ -24,7 +24,7 @@ class UserController(@Autowired val userService: UserService) {
         return userService.createUser(user)
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<Any> {
         return try {
             val user = userService.login(

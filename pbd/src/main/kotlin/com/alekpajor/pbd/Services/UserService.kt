@@ -72,6 +72,9 @@ class UserService(
         }
 
         val patients = userRepository.findByDoctorId(doctorId)
+        if (patients.isEmpty()) {
+            throw IllegalArgumentException("No patients found for doctor ID: $doctorId")
+        }
         return patients
     }
 
@@ -83,11 +86,15 @@ class UserService(
         val patient = userRepository.findByEmail(patientEmail)
             ?: throw IllegalArgumentException("No patient found with provided email")
 
+        if (patient.role == Role.DOCTOR) {
+            throw IllegalArgumentException("Cannot assign doctor to doctor")
+        }
+
         if(patient.doctorId != null) {
             throw IllegalArgumentException("Patient already assigned to another doctor")
         }
 
-        val updatedPatient = patient.copy(doctorId = doctor.doctorId)
+        val updatedPatient = patient.copy(doctorId = doctorId)
         userRepository.save(updatedPatient)
     }
 

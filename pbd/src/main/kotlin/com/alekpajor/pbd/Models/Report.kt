@@ -1,5 +1,6 @@
 package com.alekpajor.pbd.Models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -8,6 +9,7 @@ data class Report(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     val patient: User,
